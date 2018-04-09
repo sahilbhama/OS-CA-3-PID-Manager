@@ -163,5 +163,17 @@ void createProcess()
 	}
 
 }
+int main() 
+{
 
+	if(allocate_map()) 
+        {
+
+		srand(time(0));
+
+		createProcess();
+
+	}
+
+}
 
