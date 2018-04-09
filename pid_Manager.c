@@ -109,4 +109,59 @@ void release_pid(int _pid)
 	}
 
 }
+void* processFunc(void *_args) 
+{
+
+	int _pid=allocate_pid();
+
+	printf("New process created : %d\n",_pid);
+
+	int _time=(rand()+20)%(40+1);
+
+	sleep(_time);
+
+	release_pid(_pid);
+
+	printf("Process destroyed : %d\n",_pid);
+
+}
+
+
+
+void createProcess() 
+{
+
+	int i=0;
+
+	pthread_t _arrayPid[15];
+
+	if(pthread_mutex_init(&_mutexLock,NULL)!=0)
+
+		printf("Mutex init.");
+
+	while(i<15) 
+        {
+
+		pthread_create(&_arrayPid[i],NULL,processFunc,NULL);
+
+		sleep(1);
+
+		i++;
+
+	}
+
+	
+	i=0;
+
+	while(i<15) 
+        {
+
+		pthread_join(_arrayPid[i],NULL);
+
+		i++;
+
+	}
+
+}
+
 
